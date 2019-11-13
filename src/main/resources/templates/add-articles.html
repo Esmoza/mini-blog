@@ -15,6 +15,9 @@
 	integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
 	crossorigin="anonymous">
 	<link rel="stylesheet" href="/css/style.css">
+
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="/resources/demos/style.css">
 <!-- <link rel="stylesheet" href="../css/shards.min.css"> -->
 </head>
 <body>
@@ -25,7 +28,7 @@
 			<div class="card-body">
 				<div class="col-md-10">
 					<form action="#" th:action="@{/blog/add}"
-						th:object="${articles}" method="post">
+						th:object="${article}" method="post">
 						<div class="row">
 							<div class="form-group col-md-8">
 								<label for="title" class="col-form-label">Title</label> <input
@@ -57,17 +60,13 @@
 							</div>
 							<div class="form-group col-md-8">
 								<label for="createdAt" class="col-form-label">createdAt</label> <input
-									type="datetime-local" data-date="" data-date-format="YYYY DD MMMMT20:00Z" value="2015-08-09T20:00Z" th:field="*{createdAt}" class="form-control" id="createdAt"
-									placeholder="createdAt"> <span
-									th:if="${#fields.hasErrors('createdAt')}" th:errors="*{createdAt}"
-									class="text-danger"></span>
+									type="text" autocomplete="off" th:field="*{createdAt}" class="form-control" id="createdAt"
+									placeholder="createdAt">
 							</div>
 							<div class="form-group col-md-8">
-								<label for="updatedAt" class="col-form-label">updatedAt</label> <input
-									type="datetime-local"  th:text="${#dates.format(date, 'dd-MM-yyyy HH:mm')}" th:field="*{updatedAt}" class="form-control" id="updatedAt"
-									placeholder="updatedAt"> <span
-									th:if="${#fields.hasErrors('updatedAt')}" th:errors="*{updatedAt}"
-									class="text-danger"></span>
+								<label for="updatedAt" class="col-form-label">updatedAt</label>
+								<input type="text" autocomplete="off" th:field="*{updatedAt}" class="form-control" id="updatedAt"
+									placeholder="updatedAt">
 							</div>
 							<div class="col-md-6">
 								<input type="submit" class="btn btn-primary" value="Add a article">
@@ -82,5 +81,20 @@
 		</div>
 	</div>
 <!--<div th:replace="/footer::footer"></div>-->
+ <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+ <script>
+	 $( function() {
+		 $( "#createdAt" ).datetimepicker({
+			 dateFormat: 'yy-mm-dd'
+
+		 });
+		 $( "#updatedAt" ).datetimepicker({
+			 dateFormat: 'yy-mm-dd'
+
+		 });
+	 } );
+ </script>
 </body>
 </html>

@@ -1,10 +1,12 @@
 package com.auk.project.miniblog.entity;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import static java.util.Calendar.DATE;
 
@@ -31,7 +33,8 @@ public class Article {
     private LocalDateTime createdAt;
     @Column(name="updatedAt")
     private LocalDateTime updatedAt;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Comment comment;
+   // @ManyToOne
+   // @JoinColumn(name="articleId", nullable=false)
+    //private Comment comment;
 
 }

@@ -17,12 +17,12 @@
         </div>
 
         <!-- Login Form -->
-        <form action="#" th:action="@{/users/add}"
-              th:object="${user}" method="get">
+        <form action="#" th:action="@{/register}"
+              th:object="${user}" method="POST">
             <input type="text" th:field="*{name}" id="name" class="fadeIn second" name="name" placeholder="firstname">
             <input type="text" th:field="*{lastname}" id="lastname" class="fadeIn third" name="lastname" placeholder="lastname">
             <input type="text"  th:field="*{email}" id="email" class="fadeIn third" name="email" placeholder="email">
-            <input type="text"  th:field="*{username}" id="username" class="fadeIn second" name="username" placeholder="username">
+            <input type="text"  th:field="*{username}" id="username" class="fadeIn second" name="user_name" placeholder="username">
             <input type="text"th:field="*{password}"  id="password" class="fadeIn third" name="password" placeholder="password">
             <input type="submit" class="fadeIn fourth" value="Sign up">
         </form>

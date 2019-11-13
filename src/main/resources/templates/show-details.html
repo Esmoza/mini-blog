@@ -32,14 +32,10 @@
 <div class="container my-2" >
     <div class="card con" style="height:700px;">
     </div>
-  <div th:text="${#lists.toList(articles)}">ff</div>
-   <ul th:each="article : ${articles}">
-    <li th:text="${article}"></li>
-    </ul>
+
 
     <p  th:text="${articles}">Article Detail </p>
-    <div th:attr="${articles.getId()}">
-    <div th:attr="data-el_id=${articles.title}">
+
  <!--  <form
          th:action="@{/blog/detail/{id}(id=${articles.id})}"
          th:object="${articles}" method="GET">

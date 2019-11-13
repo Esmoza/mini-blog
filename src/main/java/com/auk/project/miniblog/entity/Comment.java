@@ -19,6 +19,6 @@ public class Comment {
     private Long id;
     private String name;
     private String authore;
-    @OneToMany(mappedBy = "comments" fetch= FetchType.LAZY, cascade = CascadeType.All)
-    private List<Article> articleList =new ArrayList<>();
+  //  @OneToMany(mappedBy="comments", cascade={CascadeType.ALL})
+  //  private List<Article> articleList =new ArrayList<>();
 }
