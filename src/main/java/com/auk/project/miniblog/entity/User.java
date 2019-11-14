@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.Set;
 
-@Data
+
 @Table(name="user")
 @Entity
 public class User {
@@ -18,10 +18,77 @@ public class User {
     private String username;
     @Column(name="password")
     private String password;
-    private int active=1;
-    @ManyToMany(mappedBy = "users", cascade = CascadeType.PERSIST)
+    private String lastname;
+    private int active;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name="user_role", joinColumns = @JoinColumn(name = "user_id"))
     private Set<Role> roles;
-    private String permissions="";
 
+    public User(){}
 
+    public User(User user) {
+        this.email = user.getEmail();
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.lastname = user.getLastname();
+        this.active = user.getActive();
+        this.roles = user.getRoles();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 }

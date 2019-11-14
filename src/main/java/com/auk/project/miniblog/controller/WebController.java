@@ -23,10 +23,7 @@ public class WebController {
     private ArticleRepository article;
 
     private ArticleService articleService;
-     @GetMapping("home")
-    public String getView(){
-        return "index";
-    }
+
 
     @GetMapping("list")
     public String showUpdateFormm(Model model) {
@@ -55,10 +52,12 @@ public class WebController {
 
     @GetMapping("detail/{id}")
     public String showDetails(@PathVariable("id") long id, Model model) {
-        Optional<Article> articleobj = Optional.ofNullable(articleService.findById(id));
-        if(articleobj.isPresent())
-            model.addAttribute("articles", articleobj);
-
+        Optional<Article> articleobj = Optional.ofNullable(article.findById(id));
+        Article article1;
+        if(articleobj.isPresent()){
+            article1=articleobj.get();
+            model.addAttribute("articles", article1);
+        }
         return "show-details";
 
     }
