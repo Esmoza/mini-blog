@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Set;
 
 import static java.util.Calendar.DATE;
 
@@ -33,7 +34,10 @@ public class Article {
     private LocalDateTime createdAt;
     @Column(name="updatedAt")
     private LocalDateTime updatedAt;
-   // @ManyToOne
+   @ManyToMany(mappedBy = "articles", cascade = CascadeType.PERSIST)
+    private Set<Category> categories;
+
+ // @ManyToOne
    // @JoinColumn(name="articleId", nullable=false)
     //private Comment comment;
 

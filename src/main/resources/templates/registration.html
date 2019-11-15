@@ -13,9 +13,8 @@
             <img th:src="@{/img/user.png}" id="icon" alt="User Icon" />
         </div>
 
-        <!-- Login Form -->
-        <form action="#" th:action="@{/user/register}"
-              th:object="${user}" method="POST">
+        <form action="#" th:action="@{/registration}"
+              th:object="${users}" method="POST">
             <input type="text" th:field="*{name}" id="name" class="fadeIn second" name="name" placeholder="firstname">
             <input type="text" th:field="*{lastname}" id="lastname" class="fadeIn third" name="lastname" placeholder="lastname">
             <input type="text"  th:field="*{email}" id="email" class="fadeIn third" name="email" placeholder="email">
@@ -27,6 +26,4 @@
     </div>
 </div>
 </body>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </html>

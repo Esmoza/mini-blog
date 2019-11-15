@@ -18,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -34,7 +35,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public SecurityConfiguration(CustomUserDetailsService userPrincipalDetailsService) {
         this.customUserDetailsService = customUserDetailsService;
     }
-
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth)throws Exception {
@@ -58,9 +58,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
+
                 http.authorizeRequests()
-                .anyRequest().authenticated()
+                .antMatchers("/index.html", "/registration").permitAll()
+                .antMatchers("/static/**","/templates/signup").permitAll()
+                .antMatchers("/blog/**").authenticated()
+                        .antMatchers("/categories/**").authenticated()
+                .antMatchers("/profile").authenticated()
                 .and()
                 .formLogin()
                 .loginProcessingUrl("/signin")
@@ -68,7 +72,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         .successHandler(new AuthenticationSuccessHandler() {
                             @Override
                             public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
-                                httpServletResponse.sendRedirect("/index");
+                                httpServletResponse.sendRedirect("/blog/list");
                             }
                         })
                         .failureHandler(new AuthenticationFailureHandler() {
@@ -80,7 +84,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .and()
-                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
+                .and()
+                .rememberMe()
+                .rememberMeParameter("remember-me-option") // it is name of checkbox at login page
+                .rememberMeCookieName("rememberlogin") .tokenValiditySeconds(2592000).key("mySecret");
+
+
     }
 
    /* @Bean
@@ -91,10 +101,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         return daoAuthenticationProvider;
     }
-
+*/
     @Bean
     PasswordEncoder passwordEncoder(){
         return  new BCryptPasswordEncoder();
-    }*/
+    }
 
 }

@@ -1,13 +1,7 @@
 package com.auk.project.miniblog.entity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +10,12 @@ import java.util.List;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    private String authore;
-  //  @OneToMany(mappedBy="comments", cascade={CascadeType.ALL})
-  //  private List<Article> articleList =new ArrayList<>();
+    int id;
+    @ManyToOne
+    @JoinColumn(name = "article_id", nullable = false)
+    Article article;
+    String authorName;
+    String authorEmail;
+    String commendBody;
+    LocalDateTime createdAt;
 }

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -30,20 +32,23 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping("signup")
+    @GetMapping("registration")
     public String showSignupForm(){
-        return "signup";
+        return "registration";
     }
 
-    @PostMapping("register")
-    public String signup(@Valid User user, BindingResult result, Model model) {
+    @PostMapping("registration")
+    public ModelAndView showRegistrationForm(WebRequest request, Model model, @Valid User users, BindingResult result){
+        ModelAndView modelAndv=new ModelAndView();
         if (result.hasErrors()) {
-            return "signup";
+            modelAndv.addObject("Please correct the error");
         }
 
-        userRepository.save(user);
-        return "index";
+       modelAndv.addObject("user",new User());
+      modelAndv.setViewName("registration");
+      return modelAndv;
     }
+
     @PostMapping("signin")
     public String signin(@Valid User user,BindingResult result, Model model){
         if (result.hasErrors()) {

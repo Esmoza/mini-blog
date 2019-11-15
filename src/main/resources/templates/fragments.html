@@ -22,13 +22,16 @@
           crossorigin="anonymous">
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link href="/css/login.css">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="/css/login.css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
 <!-- Fragment #2 : Navbar contains nav links -->
 <div th:fragment="nav">
-    <nav th:fragment="topbar" class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow" xmlns:th="http://www.w3.org/1999/xhtml">
+    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow" xmlns:th="http://www.w3.org/1999/xhtml">
 
         <!-- Sidebar Toggle (Topbar) -->
         <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -41,12 +44,19 @@
                         <!--    <li class="active list"><a href="#">Home</a></li> -->
                         <li class="list"><a href="/index">Home</a></li>
                         <li class="list"><a href="/blog/list">Show Articles</a></li>
+                        <li sec:authorize="isAuthenticated()" class="nav-item">
+                            <a class="nav-link" href="#" th:href="@{~/profile}">Profile</a>
+                        </li>
+                        <li sec:authorize="isAuthenticated()" class="nav-item">
+                            <a class="nav-link" href="#" th:href="@{~/categories/form}">Category</a>
+                        </li>
                     </ul>
                 </div>
                 <div class="col-md-6" id="second">
                     <form class="form-inline my-2 my-lg-0" form-method="post" th:action="@{/logout}">
                         <button sec:authorize="isAuthenticated()" class="btn btn-outline-danger my-2 my-sm-0 btn-sm" type="submit">Logout</button>
                         <button sec:authorize="isAnonymous()" th:href="@{~/login}" class="btn btn-outline-info my-2 my-sm-0 btn-sm" type="submit">Login</button>
+                        <button sec:authorize="isAnonymous()" th:href="@{~/registration}" class="btn btn-outline-info my-2 my-sm-0 btn-sm" type="submit">Signup</button>
                     </form>
 
 

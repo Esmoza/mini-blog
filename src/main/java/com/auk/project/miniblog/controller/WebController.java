@@ -31,6 +31,10 @@ public class WebController {
 
         return "show-articles";
     }
+    @GetMapping("profile")
+    public String showSignupForm(){
+        return "profile";
+    }
 
     @GetMapping("form")
     public String showArticleForm(Article articles){
