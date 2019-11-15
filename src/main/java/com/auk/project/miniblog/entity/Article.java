@@ -5,6 +5,11 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
+<<<<<<< Updated upstream
+=======
+import java.util.Date;
+import java.util.Set;
+>>>>>>> Stashed changes
 
 import static java.util.Calendar.DATE;
 
@@ -31,7 +36,16 @@ public class Article {
     private LocalDateTime createdAt;
     @Column(name="updatedAt")
     private LocalDateTime updatedAt;
+<<<<<<< Updated upstream
     @ManyToOne(fetch = FetchType.LAZY)
     private Comment comment;
+=======
+   @ManyToMany(mappedBy = "articles", cascade = CascadeType.PERSIST)
+    private Set<Category> categories;
+
+ // @ManyToOne
+   // @JoinColumn(name="articleId", nullable=false)
+    //private Comment comment;
+>>>>>>> Stashed changes
 
 }

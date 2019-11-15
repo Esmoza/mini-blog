@@ -16,9 +16,14 @@
             <img th:src="@{/img/user.png}" id="icon" alt="User Icon" />
         </div>
 
+<<<<<<< Updated upstream:src/main/resources/templates/signup.html
         <!-- Login Form -->
         <form action="#" th:action="@{/users/add}"
               th:object="${user}" method="get">
+=======
+        <form action="#" th:action="@{/registration}"
+              th:object="${users}" method="POST">
+>>>>>>> Stashed changes:src/main/resources/templates/registration.html
             <input type="text" th:field="*{name}" id="name" class="fadeIn second" name="name" placeholder="firstname">
             <input type="text" th:field="*{lastname}" id="lastname" class="fadeIn third" name="lastname" placeholder="lastname">
             <input type="text"  th:field="*{email}" id="email" class="fadeIn third" name="email" placeholder="email">
@@ -29,4 +34,8 @@
 
     </div>
 </div>
+<<<<<<< Updated upstream:src/main/resources/templates/signup.html
+=======
+</body>
+>>>>>>> Stashed changes:src/main/resources/templates/registration.html
 </html>
