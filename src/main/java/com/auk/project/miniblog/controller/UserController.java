@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -43,14 +44,13 @@ public class UserController {
         userRepository.save(user);
         return "index";
     }
-  /*  @PostMapping("login")
-    public String login(@ModelAttribute(name="loginForm") User user, Model model){
-      String username=showLoginForm();
+    @PostMapping("signin")
+    public String signin(@Valid User user,BindingResult result, Model model){
+        if (result.hasErrors()) {
+            return "login";
+        }
+
+        return "redirect:index";
     }
 
-   */
-  @GetMapping("users")
-  public List<User> userList(){
-      return this.userRepository.findAll();
-  }
 }
