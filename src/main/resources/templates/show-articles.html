@@ -20,6 +20,8 @@
                                 <input type="submit" value="Search" class="btn btn-primary">
                             </div>
                         </form>-->
+                        <div sec:authorize="isAuthenticated()">
+                            Authenticated as <span sec:authentication="name"></span></div>
                         <div class="col-md-10">
                             <!--	<h2 th:case="null">No Guests yet!</h2>
                                 <div th:case="*">-->

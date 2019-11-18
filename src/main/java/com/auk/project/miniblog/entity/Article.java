@@ -6,22 +6,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
->>>>>>> Stashed changes
-=======
-import java.util.Date;
->>>>>>> 9a7faa920f6fa9cfbdcb09863ac57ae674c4748f
-
-import static java.util.Calendar.DATE;
 
 
 @Data
-@Table(name="articles")
 @Entity
+@Table(name="articles")
 public class Article {
 
     @Id
@@ -41,22 +33,14 @@ public class Article {
     private LocalDateTime createdAt;
     @Column(name="updatedAt")
     private LocalDateTime updatedAt;
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Comment comment;
-=======
-   @ManyToMany(mappedBy = "articles", cascade = CascadeType.PERSIST)
-    private Set<Category> categories;
+//    @OneToMany(mappedBy = "articles", cascade = CascadeType.ALL)
+ //   private List<Comment> comments=new ArrayList<>();
+
 
  // @ManyToOne
    // @JoinColumn(name="articleId", nullable=false)
     //private Comment comment;
->>>>>>> Stashed changes
-=======
-   // @ManyToOne
-   // @JoinColumn(name="articleId", nullable=false)
-    //private Comment comment;
->>>>>>> 9a7faa920f6fa9cfbdcb09863ac57ae674c4748f
+
+
 
 }

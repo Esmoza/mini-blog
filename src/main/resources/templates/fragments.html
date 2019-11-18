@@ -37,7 +37,7 @@
         <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
             <i class="fa fa-bars"></i>
         </button>
-        <div class="navclass" >
+        <div class="navclass" th:object="${user}">
             <nav class="navbar navbar-default">
                 <div class="col-md-6">
                     <ul class="nav navbar-nav topnavbar">
@@ -45,10 +45,21 @@
                         <li class="list"><a href="/index">Home</a></li>
                         <li class="list"><a href="/blog/list">Show Articles</a></li>
                         <li sec:authorize="isAuthenticated()" class="nav-item">
-                            <a class="nav-link" href="#" th:href="@{~/profile}">Profile</a>
+                            <a class="nav-link" href="#" th:href="@{/blog/profile}">Profile</a>
+                        </li>
+                  <!--      <div th:switch="${role.}">
+                        <li th:case="'admin'" sec:authorize="isAuthenticated()" class="nav-item">
+                            <a class="nav-link" href="#" th:href="@{/admin/categories/form}">Category</a>
+                        </li>
+                            <li th:case="'user'" sec:authorize="isAuthenticated()" class="nav-item">
+                                <a class="nav-link" href="#" th:href="@{/admin/categories/list}">Category</a>
+                            </li>
+                        </div> -->
+                        <li  sec:authorize="hasAuthority('LIST_CATEGORIES')" class="nav-item">
+                            <a class="nav-link" href="#" th:href="@{/admin/categories/list}">Category</a>
                         </li>
                         <li sec:authorize="isAuthenticated()" class="nav-item">
-                            <a class="nav-link" href="#" th:href="@{~/categories/form}">Category</a>
+                            <a class="nav-link" href="#" th:href="@{/admin/categories/form}">Category</a>
                         </li>
                     </ul>
                 </div>

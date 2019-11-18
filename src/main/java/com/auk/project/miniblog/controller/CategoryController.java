@@ -3,6 +3,7 @@ package com.auk.project.miniblog.controller;
 import com.auk.project.miniblog.entity.Category;
 import com.auk.project.miniblog.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,16 +15,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/categories/")
+@RequestMapping("/admin/categories/")
 public class CategoryController {
 
     @Autowired
     private CategoryRepository categoryRepository;
-    @GetMapping("/form")
+
+    @GetMapping("form")
     public String  addCategories(Category category){
         return "add-categories";
 
     }
+    @PreAuthorize("hasRole('LIST_CATEGORIES')")
     @GetMapping("list")
     public String showUpdateForm(Model model) {
         model.addAttribute("categories", categoryRepository.findAll());
@@ -44,7 +47,7 @@ public class CategoryController {
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid student Id:" + id));
         model.addAttribute("category", category);
-        return "update-student";
+        return "update-categories";
     }
 
     @PostMapping("update/{id}")
@@ -52,12 +55,12 @@ public class CategoryController {
                                  Model model) {
         if (result.hasErrors()) {
             category.setId(id);
-            return "update-student";
+            return "update-categories";
         }
 
         categoryRepository.save(category);
-        model.addAttribute("students", categoryRepository.findAll());
-        return "index";
+        model.addAttribute("categories", categoryRepository.findAll());
+        return "show-categories";
     }
 
     @GetMapping("delete/{id}")
@@ -66,6 +69,6 @@ public class CategoryController {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid student Id:" + id));
         categoryRepository.delete(category);
         model.addAttribute("categories", categoryRepository.findAll());
-        return "index";
+        return "show-categories";
     }
 }

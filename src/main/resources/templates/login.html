@@ -2,17 +2,9 @@
              xmlns:th="http://www.thymeleaf.org"
              xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
              xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<<<<<<< Updated upstream
-<link rel="stylesheet" href="/css/login.css">
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-=======
 
 <head th:insert="fragments.html :: headerfiles"></head>
 <body>
->>>>>>> Stashed changes
 <div class="wrapper fadeInDown">
     <div id="formContent">
         <!-- Tabs Titles -->
@@ -22,7 +14,7 @@
         </div>
 
         <!-- Login Form -->
-        <form  th:action="@{/login}" method="POST">
+        <form  th:action="@{/signin}" method="POST">
             <input type="text" id="name" class="fadeIn second" name="name" placeholder="username">
             <input type="text" id="password" class="fadeIn third" name="password" placeholder="password">
             <div class="form-check">
@@ -39,8 +31,7 @@
 
     </div>
 </div>
-<<<<<<< Updated upstream
-=======
+
 </body>
->>>>>>> Stashed changes
+
 </html>

@@ -1,8 +1,10 @@
 package com.auk.project.miniblog.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Set;
-
+@Data
 @Entity
 @Table(name="category")
 public class Category {

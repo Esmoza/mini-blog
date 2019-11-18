@@ -18,6 +18,10 @@ public class Role {
     @ManyToOne(fetch = FetchType.LAZY)
     private Set<User> users;
 */
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @JoinTable(name="role_premission", joinColumns = @JoinColumn(name = "role_id"))
+  private Set<Premission> premissions;
+
 
     public Long getId() {
         return id;
