@@ -26,7 +26,7 @@ public class CategoryController {
         return "add-categories";
 
     }
-    @PreAuthorize("hasRole('LIST_CATEGORIES')")
+   
     @GetMapping("list")
     public String showUpdateForm(Model model) {
         model.addAttribute("categories", categoryRepository.findAll());
