@@ -45,14 +45,14 @@
                                     <td th:text="${article.updatedAt}"></td>
                                     <td th:text="${article.slug}"></td>
                                     <td th:text="${article.published}"></td>
-                                    <td><a th:href="@{/blog/detail/{id}(id=${article.id})}" class="btn btn-primary" style=" background-color: rgba(42, 42, 42, 0.81)"><i class="fas fa-user-edit ml-2"></i></a></td>
+                                    <td><a th:href="@{/blog/detail/{slug}(slug=${article.slug})}" class="btn btn-primary" style=" background-color: rgba(42, 42, 42, 0.81)"><i class="fas fa-user-edit ml-2"></i></a></td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
                         <p class="my-5" style="margin-bottom: 70px">
                             <a href="/blog/form" class="btn btn-primary" style=" background-color: rgba(42, 42, 42, 0.81)"><i
-                                    class="fas fa-user-plus ml-2">Add a Guest </i></a>
+                                    class="fas fa-user-plus ml-2">Add a Article </i></a>
 
                         </p>
                     </div>

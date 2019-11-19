@@ -54,16 +54,17 @@ public class WebController {
         return "redirect:list";
     }
 
-    @GetMapping("detail/{id}")
-    public String showDetails(@PathVariable("id") long id, Model model) {
-        Optional<Article> articleobj = Optional.ofNullable(article.findById(id));
+    @GetMapping("detail/{slug}")
+    public String showDetails(@PathVariable("slug") String slug, Model model) {
+        Optional<Article> articleobj = Optional.ofNullable(article.findBySlug(slug));
         Article article1;
         if(articleobj.isPresent()){
             article1=articleobj.get();
             model.addAttribute("articles", article1);
         }
         return "show-details";
-
     }
+
+
 
 }
