@@ -16,13 +16,13 @@
             <img th:src="@{/img/user.png}" id="icon" alt="User Icon" />
         </div>
 
-        <form action="#" th:action="@{/registration}"
-              th:object="${users}" method="POST">
-            <input type="text" th:field="*{name}" id="name" class="fadeIn second" name="name" placeholder="firstname">
-            <input type="text" th:field="*{lastname}" id="lastname" class="fadeIn third" name="lastname" placeholder="lastname">
+        <form action="#" th:action="@{/user/registration}"
+              th:object="${user}" method="POST">
+            <input type="text" th:field="*{firstname}" id="firstName" class="fadeIn second" name="firstName" placeholder="name">
+            <input type="text" th:field="*{lastName}" id="lastName" class="fadeIn third" name="lastName" placeholder="lastname">
             <input type="text"  th:field="*{email}" id="email" class="fadeIn third" name="email" placeholder="email">
-            <input type="text"  th:field="*{username}" id="username" class="fadeIn second" name="username" placeholder="username">
             <input type="password"th:field="*{password}"  id="password" class="fadeIn third" name="password" placeholder="password">
+            <input type="text"  th:field="*{matchingPassword}" id="matchingPassword" class="fadeIn second" name="matchingPassword" placeholder="username">
             <input type="submit" class="fadeIn fourth" value="Sign up">
         </form>
 
@@ -30,5 +30,5 @@
 </div>
 
 </body>
-
+<footer th:insert="fragments.html :: footer"></footer>
 </html>

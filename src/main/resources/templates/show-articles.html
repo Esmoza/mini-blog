@@ -29,7 +29,7 @@
                                 <thead>
                                 <tr>
                                     <th>Title</th>
-                                    <th>Content</th>
+                                    <th>Summary</th>
                                     <th>Created At</th>
                                     <th>Updated At</th>
                                     <th>Slug</th>
@@ -40,7 +40,7 @@
                                 <tbody>
                                 <tr th:each="article : ${articles}">
                                     <td th:text="${article.title}"></td>
-                                    <td th:text="${article.content}"></td>
+                                    <td th:text="${article.summary}"></td>
                                     <td th:text="${article.createdAt}"></td>
                                     <td th:text="${article.updatedAt}"></td>
                                     <td th:text="${article.slug}"></td>
@@ -65,3 +65,5 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
 
 </body>
+<footer th:insert="fragments.html :: footer"></footer>
+</html>

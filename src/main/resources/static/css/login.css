@@ -1,9 +1,6 @@
 
 /* BASIC */
 
-html {
-    background-color: rgba(42, 42, 42, 0.81);
-}
 
 body {
     font-family: "Poppins", sans-serif;
@@ -27,7 +24,10 @@ h2 {
     color: #cccccc;
 }
 
-
+#content{
+    hight:60px;
+    width:100px;
+}
 
 /* STRUCTURE */
 

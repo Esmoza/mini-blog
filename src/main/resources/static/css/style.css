@@ -8,6 +8,17 @@
     display: inline;
 
 }
+
+#footer {
+     position: fixed;
+     left: 0;
+     bottom: 0;
+     width: 100%;
+    background-color: rgba(42, 42, 42, 0.81);
+     color: white;
+     text-align: center;
+ }
+
 #second{
     display: inline;
     margin-right: -40%;

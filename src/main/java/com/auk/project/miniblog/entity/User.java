@@ -19,6 +19,7 @@ public class User {
     @Column(name="password")
     private String password;
     private String lastname;
+    private String firstname;
     private int active;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -27,6 +28,14 @@ public class User {
 
     public User(){}
 
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
     public User(User user) {
         this.email = user.getEmail();
         this.username = user.getUsername();
@@ -34,6 +43,7 @@ public class User {
         this.lastname = user.getLastname();
         this.active = user.getActive();
         this.roles = user.getRoles();
+        this.firstname=user.getFirstname();
     }
 
     public Long getId() {

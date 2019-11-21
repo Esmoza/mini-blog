@@ -31,6 +31,13 @@ public class WebController {
 
         return "show-articles";
     }
+
+    @GetMapping("post")
+    public String showPost(Model model) {
+        model.addAttribute("articles", article.findAll());
+
+        return "posts";
+    }
     @GetMapping("profile")
     public String showSignupForm(){
         return "profile";

@@ -24,6 +24,7 @@ public class Article {
     private String title;
     @Column(name="slug")
     private String slug;
+    private String summary;
     @NotBlank(message = "Content is mandatory")
     @Column(name="content")
     private String content;
@@ -33,6 +34,7 @@ public class Article {
     private LocalDateTime createdAt;
     @Column(name="updatedAt")
     private LocalDateTime updatedAt;
+
 //    @OneToMany(mappedBy = "articles", cascade = CascadeType.ALL)
  //   private List<Comment> comments=new ArrayList<>();
 

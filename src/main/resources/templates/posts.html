@@ -10,10 +10,9 @@
 <div class="container my-2" >
     <div class="card con" style="height:700px;">
 
-
         <div class="card">
             <div class="card-body">
-                <div th:switch="${articles}" class="container my-5">
+                <div  th:switch="${articles}" class="container my-5">
                     <p class="my-5">
                         <a href="/blog/form" class="btn btn-primary"><i
                                 class="fas fa-user-plus ml-2"> Add Article</i></a>
@@ -21,9 +20,11 @@
                     <div class="col-md-10">
                         <h2 th:case="null">No Articles yet!</h2>
                         <div th:case="*">
-                            <div th:each="article : ${articles}">
+                            <div id="simpleList">
+                            <div th:each="article : ${articles}" >
+                                <div class="card con">
                                 <article style="width: 80%;" class="col-md-8">
-                                    <h2><a href="singlepost.html"th:text="${articles.title}"></a></h2>
+                                    <h2><a href="singlepost.html"th:text="${article.title}"></a></h2>
 
                                     <div class="row">
                                         <div class="group1 col-sm-6 col-md-6">
@@ -42,8 +43,8 @@
 
                                     <br />
                                     <div id="body">
-                                    <p class="lead" th:text="${articles.summary}"></p>
-                                    <p class="lead" th:text="${articles.content}"></p>
+                                        <p class="lead" th:text="${article.summary}"></p>
+                                        <p class="lead" th:text="${article.content}"></p>
                                     </div>
                                     <p class="text-right">
                                         <a href="singlepost.html"  id="readmore" class="text-right">
@@ -52,6 +53,7 @@
                                     </p>
                                     <hr>
                                 </article>
+                                </div>
 
                             </div>
 
@@ -62,24 +64,30 @@
 
                 </div>
 
-    <div>
-    </div>
-</div>
+                <div>
+                </div>
+                </div></div>
         </div>
     </div>
 </div>
 </body>
-
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
-$(function(){
-    $('#readmore').click(function(){
-        $('#body').animate({height:'100%'});
-        $(this).hide();
-        return false;
-    });
-});
+    // Simple list
+    Sortable.create(simpleList, { /* options */ });
+
 </script>
 
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+<script>
+    $(function(){
+        $('#readmore').click(function(){
+            $('#body').animate({height:'100%'});
+            $(this).hide();
+            return false;
+        });
+    });
+</script>
 <footer th:insert="fragments.html :: footer"></footer>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
 </html>

@@ -1,9 +1,10 @@
 package com.auk.project.miniblog.dto;
 
 import com.auk.project.miniblog.entity.Role;
+import lombok.Data;
 
 import java.util.Set;
-
+@Data
 public class UserDto {
 
     private Long id;
