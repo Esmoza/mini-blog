@@ -30,40 +30,6 @@ public class UserController {
         return "login";
     }
 
-/*
-    @GetMapping("registration")
-    public String showSignupForm(){
-        return "registration";
-    }
-
-    @PostMapping("registration")
-    public ModelAndView showRegistrationForm(WebRequest request, Model model, @Valid User users, BindingResult result){
-        ModelAndView modelAndv=new ModelAndView();
-        if (result.hasErrors()) {
-            modelAndv.addObject("Please correct the error");
-        }
-
-       modelAndv.addObject("user",new User());
-      modelAndv.setViewName("registration");
-      return modelAndv;
-    }
-*/
-
-    @GetMapping("signup")
-    public String showSignupForm(){
-        return "signup";
-    }
-
-    @PostMapping("register")
-    public String signup(@Valid User user, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "signup";
-        }
-
-        userRepository.save(user);
-        return "index";
-    }
-
     @PostMapping("signin")
     public String signin(@Valid User user,BindingResult result, Model model){
         if (result.hasErrors()) {
@@ -72,5 +38,6 @@ public class UserController {
 
         return "redirect:index";
     }
+
 
 }

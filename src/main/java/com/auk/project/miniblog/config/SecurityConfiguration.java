@@ -58,11 +58,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
                 http.authorizeRequests()
-                .antMatchers("/index.html", "/registration").permitAll()
+                .antMatchers("/index.html").permitAll()
+                        .antMatchers("/signup").permitAll()
                 .antMatchers("/static/**","/templates/signup").permitAll()
                 .antMatchers("/blog/**").authenticated()
                         .antMatchers("/blog/list").hasRole("ADMIN")
-                        .antMatchers("/admin/**").hasRole("ADMIN")
+                        .antMatchers("/admin/categories/**").hasRole("ADMIN")
                 .antMatchers("/blog/profile").authenticated()
                 .and()
                 .formLogin()
@@ -71,7 +72,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         .successHandler(new AuthenticationSuccessHandler() {
                             @Override
                             public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
-                                httpServletResponse.sendRedirect("/blog/list");
+                                httpServletResponse.sendRedirect("/index");
 
                             }
                         })

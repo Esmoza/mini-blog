@@ -1,10 +1,12 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
 <head th:insert="fragments.html :: headerfiles"></head>
 <body>
+<header th:insert="fragments.html :: nav"></header>
 <div class="card thirdcon">
     <div class="card-body">
         <div th:switch="${categories}" class="container my-5">
