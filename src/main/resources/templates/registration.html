@@ -16,13 +16,12 @@
             <img th:src="@{/img/user.png}" id="icon" alt="User Icon" />
         </div>
 
-        <form action="#" th:action="@{/registration}"
-              th:object="${user}" method="POST">
+        <form th:action="@{/add}" method="POST"  th:object="${userdto}">
             <input type="text" th:field="*{firstname}" id="firstname" class="fadeIn second" name="firstname" placeholder="name">
             <input type="text" th:field="*{lastname}" id="lastname" class="fadeIn third" name="lastname" placeholder="lastname">
-            <input type="text"  th:field="*{email}" id="email" class="fadeIn third" name="email" placeholder="email">
+            <input type="text"  th:field="*{username}" id="username" class="fadeIn third" name="username" placeholder="username">
             <input type="password"th:field="*{password}"  id="password" class="fadeIn third" name="password" placeholder="password">
-            <input type="text"  th:field="*{matchingPassword}" id="matchingPassword" class="fadeIn second" name="matchingPassword" placeholder="username">
+         <!--   <input type="text"  th:field="*{matchingPassword}" id="matchingPassword" class="fadeIn second" name="matchingPassword" placeholder="username"> -->
             <input type="submit" class="fadeIn fourth" value="Sign up">
         </form>
 

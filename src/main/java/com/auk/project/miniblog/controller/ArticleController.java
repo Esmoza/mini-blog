@@ -57,7 +57,7 @@ public class ArticleController {
     @RequestMapping(value = "add", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    public String addGuest(@Valid ArticlesDto articlesDto, BindingResult result, Model model) {
+    public String addArticle(@Valid ArticlesDto articlesDto, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "add-articles";
         }

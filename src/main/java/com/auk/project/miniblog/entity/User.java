@@ -14,7 +14,7 @@ public class User {
     private Long id;
     @Column(name="email")
     private String email;
-    @Column(name = "user_name")
+    @Column(name = "username")
     private String username;
     @Column(name="password")
     private String password;

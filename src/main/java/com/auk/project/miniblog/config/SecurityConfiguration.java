@@ -4,6 +4,7 @@ import com.auk.project.miniblog.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -26,7 +27,15 @@ import java.io.IOException;
 @EnableJpaRepositories(basePackageClasses = UserRepository.class)
 @Configuration
 @EnableWebSecurity
+@Order(1)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        return bCryptPasswordEncoder;
+    }
+
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
@@ -36,23 +45,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth)throws Exception {
-       auth.userDetailsService(customUserDetailsService)
-       .passwordEncoder(getPasswordEncoder());
+       auth.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
     }
-
-     private PasswordEncoder getPasswordEncoder(){
-        return new PasswordEncoder() {
-            @Override
-            public String encode(CharSequence charSequence) {
-                return charSequence.toString();
-            }
-
-            @Override
-            public boolean matches(CharSequence charSequence, String s) {
-                return true;
-            }
-        };
-     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -82,7 +76,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                                 httpServletResponse.sendRedirect("/login");
                             }
                         })
-                .usernameParameter("name")
+                .usernameParameter("username")
                 .passwordParameter("password")
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
@@ -102,12 +96,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         return daoAuthenticationProvider;
     }
-<<<<<<< HEAD
+
 */
-    @Bean
-    PasswordEncoder passwordEncoder(){
-        return  new BCryptPasswordEncoder();
-    }
 
 
 }
