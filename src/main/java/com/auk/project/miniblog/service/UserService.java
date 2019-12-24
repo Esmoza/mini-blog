@@ -22,15 +22,6 @@ public class UserService {
     @Autowired
     public BCryptPasswordEncoder bCryptPasswordEncoder;
 
-   /* public UserDto findByUserName(String userName) {
-       Optional<User> user=userRepository.findByUsername(userName);
-       User user1=null;
-        if(user.isPresent()){
-            user1=user.get();
-        }
-        return userMapper.mapToDto(user1);
-    }
-*/
    public UserDto findByUserName(String userName) {
        Optional<User> user=userRepository.findByUsername(userName);
        User user1=null;
@@ -40,8 +31,9 @@ public class UserService {
        return userMapper.mapToDto(user1);
    }
     public void save(User user){
-       user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-       userMapper.mapToDto(userRepository.save(user));
+        user.setActive(1);
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        userMapper.mapToDto(userRepository.save(user));
     }
 
 }

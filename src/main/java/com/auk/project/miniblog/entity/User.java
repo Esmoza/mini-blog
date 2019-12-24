@@ -21,12 +21,30 @@ public class User {
     private String lastname;
     private String firstname;
     private int active;
+    private String phoneNumber=null;
+    private String location=null;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name="user_role", joinColumns = @JoinColumn(name = "user_id"))
     private Set<Role> roles;
 
     public User(){}
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
     public String getFirstname() {
         return firstname;

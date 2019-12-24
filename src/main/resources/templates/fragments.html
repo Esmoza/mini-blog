@@ -55,7 +55,7 @@
                         </sec:authorize>
                         <li class="list"><a  href="/blog/post"> Articles</a></li>
                         <li class="list" sec:authorize="isAuthenticated()">
-                            <a href="#" th:href="@{/blog/profile}">Profile</a>
+                            <a href="#" th:href="@{'/update/' + ${#authentication.name}}">Profile</a>
                         </li>
                   <!--      <div th:switch="${role.}">
                         <li th:case="'admin'" sec:authorize="isAuthenticated()" class="nav-item">
@@ -65,11 +65,13 @@
                                 <a class="nav-link" href="#" th:href="@{/admin/categories/list}">Category</a>
                             </li>
                         </div> -->
-                        <li class="list" sec:authorize="hasAuthority('LIST_CATEGORIES')">
+                        <sec:authorize access="hasRole('ADMIN')">
+                        <li class="list">
                             <a href="#" th:href="@{/admin/categories/list}">Category</a>
                         </li>
+                        </sec:authorize>
                         <li class="list" sec:authorize="isAuthenticated()">
-                            <a href="#" th:href="@{/admin/categories/form}">Category</a>
+                            <a href="#" th:href="@{/admin/categories/categoriesForm}">Category</a>
                         </li>
                     </ul>
                 </div>

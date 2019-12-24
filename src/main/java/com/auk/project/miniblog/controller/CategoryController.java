@@ -21,19 +21,19 @@ public class CategoryController {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    @GetMapping("form")
+    @GetMapping("categoriesForm")
     public String  addCategories(Category category){
         return "add-categories";
 
     }
    
-    @GetMapping("list")
+    @GetMapping("showForm")
     public String showUpdateForm(Model model) {
         model.addAttribute("categories", categoryRepository.findAll());
         return "show-categories";
     }
 
-    @PostMapping("add")
+    @PostMapping("addCategory")
     public String addCategory(@Valid Category category, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "add-categories";
@@ -63,7 +63,7 @@ public class CategoryController {
         return "show-categories";
     }
 
-    @GetMapping("delete/{id}")
+    @GetMapping("deleteCategory/{id}")
     public String deleteCategory(@PathVariable("id") long id, Model model) {
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid student Id:" + id));

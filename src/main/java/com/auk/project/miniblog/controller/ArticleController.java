@@ -34,11 +34,6 @@ public class ArticleController {
         return "add-articles";
     }
 
-    @GetMapping("profile")
-    public String showSignupForm(){
-        return "profile";
-    }
-
     @GetMapping("list")
     public String findAll(Model model) {
         model.addAttribute("articles", articleService.findAll());
@@ -46,7 +41,7 @@ public class ArticleController {
         return "show-articles";
     }
 
-    @GetMapping("post")
+   @GetMapping("post")
     public String showPost(Model model) {
         model.addAttribute("articles", article.findAll());
 
@@ -54,7 +49,7 @@ public class ArticleController {
     }
 
 
-    @RequestMapping(value = "add", method = RequestMethod.POST,
+    @RequestMapping(value = "addArticles", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public String addArticle(@Valid ArticlesDto articlesDto, BindingResult result, Model model) {

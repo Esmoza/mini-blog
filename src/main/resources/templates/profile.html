@@ -1,14 +1,88 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:th="http://www.thymeleaf.org">
 <head th:insert="fragments.html :: headerfiles"></head>
+<link rel="stylesheet" href="/css/profile.css">
 <body>
-<header th:insert="fragments.html :: nav"></header>
-<p>Welcome to user profile!</p>
+<header th:insert="fragments.html :: nav">
+
+</header>
+<hr>
+<div class="container bootstrap snippet">
+    <div class="row">
+
+    </div>
+    <div class="wrapper">
+        <div class="column"><!--left col-->
+            <div class="text-center">
+                <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
+                <div class=""><h1 th:object="${user}" th:text="${user.firstname}"></h1></div>
+                <div>
+                    <input type="file" class="text-center center-block file-upload">
+                </div>
+            </div></hr><br>
+
+
+            <div class="panel panel-default text-center">
+                <div class="panel-heading">Website <i class="fa fa-link fa-1x"></i></div>
+                <div class="panel-body"><a href="http://bootnipets.com">bootnipets.com</a></div>
+            </div>
+
+        </div><!--/col-3-->
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="home">
+                <form th:action="@{/update/{username}(username=${user.username})}" th:object="${user}" method="POST">
+                    <div class="custom-row">
+
+                        <div class="custom-col">
+                            <label for="firstname">First name</label>
+                            <input type="text" class="form-control" th:field="*{firstname}" id="firstname" placeholder="first name" title="enter your first name if any.">
+                        </div>
+
+                        <div class="custom-col">
+                            <label for="last_name">Last name</label>
+                            <input type="text" class="form-control" th:field="*{lastname}" name="last_name" id="last_name" placeholder="last name" title="enter your last name if any.">
+                        </div>
+
+                        <div class="custom-col">
+                            <label for="phone">Phone</label>
+                            <input type="text" class="form-control" th:field="*{phoneNumber}" name="phone" id="phone" placeholder="enter phone" title="enter your phone number if any.">
+                        </div>
+
+                        <div class="custom-col">
+                            <label for="location">Location</label>
+                            <input type="text" class="form-control"  th:field="*{location}"id="location" placeholder="somewhere" title="enter a location">
+                        </div>
+
+                        <div class="custom-col">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" th:field="*{email}" id="email" placeholder="you@email.com" title="enter your email.">
+                        </div>
+
+                        <div class="custom-col">
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" disabled id="username" placeholder="user name" title="enter your user name if any.">
+                        </div>
+
+                        <div class="custom-col">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" name="password" id="password" placeholder="password" title="enter your password.">
+                        </div>
+
+                    </div>
+                    <div class="button-wrapper">
+                        <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                        <button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
+                    </div>
+                </form>
+            </div>
+        </div><!--/tab-content-->
+
+    </div><!--/col-9-->
+</div><!--/row-->
 
 </body>
 <footer th:insert="fragments.html :: footer"></footer>
 </html>
+
