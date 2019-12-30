@@ -30,7 +30,15 @@ public class ArticleMapper implements  CustomMapper<Article, ArticlesDto> {
     public List<ArticlesDto> mapToDtoList(Iterable<Article> articles){
         List<ArticlesDto> articlesDtos=new ArrayList<>();
         for(Article article : articles){
-            articlesDtos.add(mapToDto(article));
+            ArticlesDto articlesDto=new ArticlesDto();
+            articlesDto.setId(article.getId());
+            articlesDto.setTitle(article.getTitle());
+            articlesDto.setContent(article.getContent());
+            articlesDto.setSlug(article.getSlug());
+            articlesDto.setSummary(article.getSummary());
+            articlesDto.setCreatedAt(article.getCreatedAt());
+            articlesDto.setUpdatedAt(article.getUpdatedAt());
+            articlesDtos.add(articlesDto);
         }
         return articlesDtos;
 

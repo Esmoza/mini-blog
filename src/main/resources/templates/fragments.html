@@ -26,7 +26,6 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="/css/login.css">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
@@ -54,35 +53,50 @@
                             <li class="list"><a href="/blog/list">Show Articles</a></li>
                         </sec:authorize>
                         <li class="list"><a  href="/blog/post"> Articles</a></li>
-                        <li class="list" sec:authorize="isAuthenticated()">
+                        <!--   <li class="list" sec:authorize="isAuthenticated()">
                             <a href="#" th:href="@{'/update/' + ${#authentication.name}}">Profile</a>
                         </li>
-                  <!--      <div th:switch="${role.}">
+                     <div th:switch="${role.}">
                         <li th:case="'admin'" sec:authorize="isAuthenticated()" class="nav-item">
                             <a class="nav-link" href="#" th:href="@{/admin/categories/form}">Category</a>
                         </li>
                             <li th:case="'user'" sec:authorize="isAuthenticated()" class="nav-item">
                                 <a class="nav-link" href="#" th:href="@{/admin/categories/list}">Category</a>
                             </li>
-                        </div> -->
+                        </div>
                         <sec:authorize access="hasRole('ADMIN')">
                         <li class="list">
                             <a href="#" th:href="@{/admin/categories/list}">Category</a>
-                        </li>
+                        </li> -->
                         </sec:authorize>
                         <li class="list" sec:authorize="isAuthenticated()">
                             <a href="#" th:href="@{/admin/categories/categoriesForm}">Category</a>
                         </li>
                     </ul>
                 </div>
+                <!--
                 <div class="col-md-6" id="second">
                     <form class="form-inline my-2 my-lg-0" form-method="post" th:action="@{/logout}">
-                <!--        <button sec:authorize="isAnonymous()"  th:href="@{~/signup}" class="btn btn-outline-info my-2 my-sm-0 btn-sm" type="submit">Signup</button> -->
+                      <button sec:authorize="isAnonymous()"  th:href="@{~/signup}" class="btn btn-outline-info my-2 my-sm-0 btn-sm" type="submit">Signup</button>
                         <button sec:authorize="isAuthenticated()" class="btn btn-outline-danger my-2 my-sm-0 btn-sm" type="submit">Logout</button>
                         <button sec:authorize="isAnonymous()" th:href="@{~/login}" class="btn btn-outline-info my-2 my-sm-0 btn-sm" type="submit">Login</button>
 
                     </form>
 
+                </div>
+                -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active" sec:authorize="isAuthenticated()">
+                            <a class="nav-link"  href="#"  th:href="@{'/update/' + ${#authentication.name}}" style="color: #fefefe;font-size: 17px;font-style: normal;margin-left:490px"><span class="badge"><i class="fas fa-user-cog align-middle"></i></span><span class="align-middle">Settings</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link"  sec:authorize="isAnonymous()" th:href="@{~/login}" style="color: #fefefe;font-size: 17px;font-style: normal;margin-left:590px"><span class="badge"><i class="fas fa-sign-out-alt align-middle"></i></span><span class="align-middle">Log In</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link"  sec:authorize="isAuthenticated()" th:href="@{~/logout}" style="color: #fefefe;font-size: 17px;font-style: normal;margin-left: 20px"><span class="badge"><i class="fas fa-sign-out-alt align-middle"></i></span><span class="align-middle">Log out</span></a>
+                        </li>
+                    </ul>
                 </div>
     </nav>
 </div>

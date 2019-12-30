@@ -1,9 +1,12 @@
 package com.auk.project.miniblog.controller;
 
 import com.auk.project.miniblog.dto.ArticlesDto;
+import com.auk.project.miniblog.dto.CategoryDto;
 import com.auk.project.miniblog.entity.Article;
+import com.auk.project.miniblog.entity.Category;
 import com.auk.project.miniblog.repository.ArticleRepository;
 import com.auk.project.miniblog.service.ArticleService;
+import com.auk.project.miniblog.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -15,9 +18,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -29,8 +36,13 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
+    @Autowired
+    public CategoryService categoryService;
+
     @GetMapping("form")
-    public String showArticleForm(Article articles){
+    public String showArticleForm(Article articles, Model model, Category category){
+        List<CategoryDto> categories=categoryService.findAll();
+        model.addAttribute("categories",categories);
         return "add-articles";
     }
 
@@ -66,6 +78,15 @@ public class ArticleController {
         return "show-details";
     }
 
-
+    @PostMapping("uploadImage")
+   public String uploadImage(@RequestParam("imageFile")MultipartFile imageFile)throws Exception{
+        try{
+            articleService.saveImage(imageFile);
+        }catch(Exception e){
+            e.printStackTrace();
+            System.out.println("Error saving photo");
+        }
+        return "redirect:list";
+   }
 
 }

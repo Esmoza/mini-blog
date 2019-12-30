@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.Optional;
-
-
 
 @Service
 public class UserService {
@@ -22,15 +19,17 @@ public class UserService {
     @Autowired
     public BCryptPasswordEncoder bCryptPasswordEncoder;
 
-   public UserDto findByUserName(String userName) {
-       Optional<User> user=userRepository.findByUsername(userName);
-       User user1=null;
-       if(user.isPresent()){
-           user1=user.get();
-       }
-       return userMapper.mapToDto(user1);
-   }
-    public void save(User user){
+    public UserDto findByUserName(String userName) {
+        Optional<User> user = userRepository.findByUsername(userName);
+        User user1 = null;
+        if (user.isPresent()) {
+            user1 = user.get();
+        }
+        return userMapper.mapToDto(user1);
+    }
+
+    public void save(User user) {
+        user.setEnabled(true);
         user.setActive(1);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userMapper.mapToDto(userRepository.save(user));

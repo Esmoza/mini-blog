@@ -23,12 +23,20 @@ public class User {
     private int active;
     private String phoneNumber=null;
     private String location=null;
-
+    private boolean isEnabled;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name="user_role", joinColumns = @JoinColumn(name = "user_id"))
     private Set<Role> roles;
 
     public User(){}
+
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
+    }
 
     public String getPhoneNumber() {
         return phoneNumber;

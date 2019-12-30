@@ -1,24 +1,24 @@
 package com.auk.project.miniblog.controller;
 
-import com.auk.project.miniblog.dto.ArticlesDto;
-import com.auk.project.miniblog.dto.UserDto;
+import com.auk.project.miniblog.entity.ConfirmationToken;
 import com.auk.project.miniblog.entity.User;
+import com.auk.project.miniblog.repository.ConfirmationTokenRepository;
 import com.auk.project.miniblog.repository.UserRepository;
+import com.auk.project.miniblog.service.EmailSenderService;
 import com.auk.project.miniblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -34,9 +34,17 @@ public class RegistrationController {
     @Autowired
     public BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
+    private EmailSenderService emailSenderService;
+
+    @Autowired
+    private ConfirmationTokenRepository confirmationTokenRepository;
+
     @GetMapping("/signup")
-    public String showSignupForm(){
-        return "registration";
+    public ModelAndView showSignupForm(ModelAndView modelAndView, User user){
+        modelAndView.addObject("user", user);
+        modelAndView.setViewName("registration");
+        return modelAndView;
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST,
@@ -50,11 +58,62 @@ public class RegistrationController {
         return "redirect:index";
     }
 
+    @RequestMapping(value="/register", method = RequestMethod.POST)
+    public ModelAndView registerUser(ModelAndView modelAndView, User user)
+    {
 
-    @ModelAttribute("userdto")
-    public UserDto userRegistrationDto() {
-        return new UserDto();
+        User existingUser = userRepository.findByEmailIgnoreCase(user.getEmail());
+        if(existingUser != null)
+        {
+            modelAndView.addObject("message","This email already exists!");
+            modelAndView.setViewName("error");
+        }
+        else
+        {
+            userService.save(user);
+
+            ConfirmationToken confirmationToken = new ConfirmationToken(user);
+
+            confirmationTokenRepository.save(confirmationToken);
+
+            SimpleMailMessage mailMessage = new SimpleMailMessage();
+            mailMessage.setTo(user.getEmail());
+            mailMessage.setSubject("Complete Registration!");
+            mailMessage.setFrom("elshaniesmoza@gmail.com");
+            mailMessage.setText("To confirm your account, please click here : "
+                    +"http://localhost:8082/confirm-account?token="+confirmationToken.getConfirmationToken());
+
+            emailSenderService.sendEmail(mailMessage);
+
+            modelAndView.addObject("email", user.getEmail());
+
+            modelAndView.setViewName("successfulRegisteration");
+        }
+
+        return modelAndView;
     }
+
+    @RequestMapping(value="/confirm-account", method= {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView confirmUserAccount(ModelAndView modelAndView, @RequestParam("token")String confirmationToken)
+    {
+        ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
+
+        if(token != null)
+        {
+            User user = userRepository.findByEmailIgnoreCase(token.getUser().getEmail());
+            user.setEnabled(true);
+            userRepository.save(user);
+            modelAndView.setViewName("accountVerified");
+        }
+        else
+        {
+            modelAndView.addObject("message","The link is invalid or broken!");
+            modelAndView.setViewName("error");
+        }
+
+        return modelAndView;
+    }
+
 
     @GetMapping("/update/{username}")
     public String showUpdateForm(@PathVariable("username") String username, Model model) {

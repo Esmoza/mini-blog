@@ -40,7 +40,7 @@ public class CategoryController {
         }
 
         categoryRepository.save(category);
-        return "redirect:list";
+        return "redirect:showForm";
     }
     @GetMapping("edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
@@ -69,6 +69,6 @@ public class CategoryController {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid student Id:" + id));
         categoryRepository.delete(category);
         model.addAttribute("categories", categoryRepository.findAll());
-        return "show-categories";
+        return "redirect:showForm";
     }
 }
