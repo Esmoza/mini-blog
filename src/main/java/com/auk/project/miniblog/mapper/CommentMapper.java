@@ -13,14 +13,14 @@ public class CommentMapper implements CustomMapper<Comment, CommentDto> {
     @Override
     public CommentDto mapToDto(Comment entity) {
        CommentDto commentDto=new CommentDto();
-        BeanUtils.copyProperties(commentDto,entity);
+        BeanUtils.copyProperties(entity,commentDto);
         return commentDto;
     }
 
     @Override
     public Comment mapToEntity(CommentDto commentDto) {
        Comment comment=new Comment();
-       BeanUtils.copyProperties(comment, commentDto);
+       BeanUtils.copyProperties(commentDto,comment);
         return comment;
     }
 

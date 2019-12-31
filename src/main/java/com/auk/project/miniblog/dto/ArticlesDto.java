@@ -16,7 +16,16 @@ public class ArticlesDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private CategoryDto categoryDto;
+    private String path;
     private String[] tags=null;
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
 
     public String[] getTags() {
         return tags;

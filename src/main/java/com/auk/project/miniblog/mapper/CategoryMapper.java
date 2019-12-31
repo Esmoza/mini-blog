@@ -15,7 +15,7 @@ public class CategoryMapper implements CustomMapper<Category, CategoryDto> {
     @Override
     public CategoryDto mapToDto(Category entity) {
         CategoryDto categoryDto = new CategoryDto();
-        BeanUtils.copyProperties(categoryDto, entity);
+        BeanUtils.copyProperties(entity,categoryDto);
         return categoryDto;
     }
 
@@ -30,7 +30,7 @@ public class CategoryMapper implements CustomMapper<Category, CategoryDto> {
         List<CategoryDto> categoriesDtos = new ArrayList<>();
         for (Category category : categories) {
             CategoryDto dto = new CategoryDto();
-            dto.setId(category.getId());
+           // dto.setId(category.getId());
             dto.setName(category.getName());
             categoriesDtos.add(dto);
         }

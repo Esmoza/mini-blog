@@ -41,12 +41,12 @@ public class ArticleService {
 
     }
 
-    public void save(ArticlesDto articlesDto) {
+    public Article save(ArticlesDto articlesDto) {
         Article article = articleMapper.mapToEntity(articlesDto);
         article.setCreatedAt(LocalDateTime.now());
         article.setUpdatedAt(LocalDateTime.now());
         article.setPublished(1);
-        articleRepository.save(article);
+       return articleRepository.save(article);
     }
 
     public List<ArticlesDto> findAll() {
@@ -54,9 +54,10 @@ public class ArticleService {
     }
 
     public void saveImage(MultipartFile imageFile)throws Exception {
-        String folder="/photos/";
+        String folder="/photo/";
         byte[] bytes=imageFile.getBytes();
         Path path=Paths.get(folder +imageFile.getOriginalFilename());
+        System.out.println(path.toAbsolutePath());
         Files.write(path,bytes);
     }
 }

@@ -13,14 +13,14 @@ public class UserMapper implements CustomMapper<User, UserDto> {
     @Override
     public UserDto mapToDto(User entity) {
         UserDto userDto=new UserDto();
-        BeanUtils.copyProperties(userDto,entity);
+        BeanUtils.copyProperties(entity,userDto);
         return userDto;
     }
 
     @Override
     public User mapToEntity(UserDto userDto) {
         User user=new User();
-        BeanUtils.copyProperties(user,userDto);
+        BeanUtils.copyProperties(userDto,user);
         return user;
     }
 
