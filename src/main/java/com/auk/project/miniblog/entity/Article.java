@@ -33,6 +33,7 @@ public class Article {
     @Column(name="updatedAt")
     private LocalDateTime updatedAt;
     private String[] tags=null;
+     private Long categoryId;
 
 //    @OneToMany(mappedBy = "articles", cascade = CascadeType.ALL)
  //   private List<Comment> comments=new ArrayList<>();
@@ -43,8 +44,16 @@ public class Article {
     //private Comment comment;
 
  @ManyToOne
- @JoinColumn(name="category_id")
+ @JoinColumn(name="category")
  private Category category;
+
+ public Long getCategoryId() {
+  return categoryId;
+ }
+
+ public void setCategoryId(Long categoryId) {
+  this.categoryId = categoryId;
+ }
 
  public Long getId() {
   return id;

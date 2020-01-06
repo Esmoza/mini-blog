@@ -1,0 +1,52 @@
+.navclass {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgba(42, 42, 42, 0.81);
+    width: 120%;
+    display: inline;
+
+}
+
+#footer {
+     position: fixed;
+     left: 0;
+     bottom: 0;
+     width: 100%;
+    background-color: rgba(42, 42, 42, 0.81);
+     color: white;
+     text-align: center;
+ }
+
+#second{
+    display: inline;
+    margin-right: -40%;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none !important;
+}
+
+li a:hover:not(.active) {
+    background-color: rgba(29, 29, 29, 0.91);
+}
+
+a:hover
+{
+    color: white;
+    text-decoration:none;
+    cursor:pointer;
+}
+
+#button{
+    background-color: rgba(42, 42, 42, 0.81);
+}

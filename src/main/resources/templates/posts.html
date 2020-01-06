@@ -8,7 +8,6 @@
 <body>
 <header th:insert="fragments.html :: nav"></header>
 <div class="container my-2" >
-    <div class="card con" style="height:700px;">
 
         <div class="card">
             <div class="card-body">
@@ -39,7 +38,7 @@
                                     </div>
                                     <hr>
 
-                                    <img src="http://placehold.it/450x300" class="img-responsive">
+                                    <img th:src="@{${'/photos/' + article.path}}" class="img-responsive">
 
                                     <br />
                                     <div id="body">
@@ -51,7 +50,6 @@
                                             continue reading...
                                         </a>
                                     </p>
-                                    <hr>
                                 </article>
                                 </div>
 
@@ -66,7 +64,7 @@
 
                 <div>
                 </div>
-                </div></div>
+
         </div>
     </div>
 </div>

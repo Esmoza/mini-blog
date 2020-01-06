@@ -29,10 +29,7 @@ public class CategoryMapper implements CustomMapper<Category, CategoryDto> {
     public List<CategoryDto> mapToList(Iterable<Category> categories) {
         List<CategoryDto> categoriesDtos = new ArrayList<>();
         for (Category category : categories) {
-            CategoryDto dto = new CategoryDto();
-           // dto.setId(category.getId());
-            dto.setName(category.getName());
-            categoriesDtos.add(dto);
+           categoriesDtos.add(mapToDto(category));
         }
         return categoriesDtos;
     }

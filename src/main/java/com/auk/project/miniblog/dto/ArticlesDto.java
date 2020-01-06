@@ -16,11 +16,20 @@ public class ArticlesDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private CategoryDto categoryDto;
+    private Long categoryId;
     private String path;
     private String[] tags=null;
 
     public String getPath() {
         return path;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 
     public void setPath(String path) {

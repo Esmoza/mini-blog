@@ -6,6 +6,7 @@ import com.auk.project.miniblog.dto.PhotoDto;
 import com.auk.project.miniblog.entity.Article;
 import com.auk.project.miniblog.entity.Category;
 import com.auk.project.miniblog.entity.Photo;
+import com.auk.project.miniblog.mapper.ArticleMapper;
 import com.auk.project.miniblog.repository.ArticleRepository;
 import com.auk.project.miniblog.service.ArticleService;
 import com.auk.project.miniblog.service.CategoryService;
@@ -43,10 +44,12 @@ public class ArticleController {
 
     @Autowired
     public PhotoService photoService;
+    @Autowired
+    public ArticleMapper articleMapper;
 
     @GetMapping("form")
     public String showArticleForm(Article articles, Model model, Category category){
-        List<Category> categories= (List<Category>) categoryService.findAll();
+        List<CategoryDto> categories= categoryService.findAll();
         model.addAttribute("categories",categories);
         return "add-articles";
     }
@@ -67,25 +70,15 @@ public class ArticleController {
         }
 
         model.addAttribute("articles", articlesDtos);
+
         return "posts";
     }
 
-
-//    @RequestMapping(value = "addArticles", method = RequestMethod.POST,
-//            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-//            produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-//    public String addArticle(@Valid ArticlesDto articlesDto, BindingResult result, Model model) {
-//        if (result.hasErrors()) {
-//            return "add-articles";
-//        }
-//        articleService.save(articlesDto);
-//        return "redirect:list";
-//    }
-
     @GetMapping("detail/{slug}")
     public String showDetails(@PathVariable("slug") String slug, Model model,Article article) {
-        model.addAttribute("articles", articleService.find(slug));
-        model.addAttribute("photo", photoService.findByPost(article));
+        ArticlesDto article1=articleService.find(slug);
+        model.addAttribute("articles", article1);
+        model.addAttribute("photo", photoService.findByPost(articleMapper.mapToEntity(article1)));
         return "show-details";
     }
 
@@ -103,7 +96,7 @@ public class ArticleController {
         }
         PhotoDto photoDto=new PhotoDto();
         photoDto.setFileName(imageFile.getOriginalFilename());
-        photoDto.setPath("/photo/");
+        photoDto.setPath("/photos/");
         photoDto.setArtcicleId(article.getId());
         photoService.save(photoDto);
 

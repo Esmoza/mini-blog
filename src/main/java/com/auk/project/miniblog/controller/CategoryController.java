@@ -23,20 +23,20 @@ public class CategoryController {
 
     @GetMapping("categoriesForm")
     public String  addCategories(Category category){
-        return "add-categories";
+        return "../static/pages/category/add-category";
 
     }
    
     @GetMapping("showForm")
     public String showUpdateForm(Model model) {
         model.addAttribute("categories", categoryRepository.findAll());
-        return "show-categories";
+        return "../static/pages/category/show-categories";
     }
 
     @PostMapping("addCategory")
     public String addCategory(@Valid Category category, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "add-categories";
+            return "../static/pages/category/add-category";
         }
 
         categoryRepository.save(category);
@@ -55,12 +55,12 @@ public class CategoryController {
                                  Model model) {
         if (result.hasErrors()) {
             category.setId(id);
-            return "update-categories";
+            return "../static/pages/category/update-categories";
         }
 
         categoryRepository.save(category);
         model.addAttribute("categories", categoryRepository.findAll());
-        return "show-categories";
+        return "../static/pages/category/show-categories";
     }
 
     @GetMapping("deleteCategory/{id}")
@@ -69,6 +69,6 @@ public class CategoryController {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid student Id:" + id));
         categoryRepository.delete(category);
         model.addAttribute("categories", categoryRepository.findAll());
-        return "redirect:showForm";
+        return "redirect:/admin/categories/showForm";
     }
 }

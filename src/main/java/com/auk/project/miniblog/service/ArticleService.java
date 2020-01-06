@@ -4,6 +4,7 @@ import com.auk.project.miniblog.dto.ArticlesDto;
 import com.auk.project.miniblog.entity.Article;
 import com.auk.project.miniblog.entity.Category;
 import com.auk.project.miniblog.mapper.ArticleMapper;
+import com.auk.project.miniblog.mapper.CategoryMapper;
 import com.auk.project.miniblog.repository.ArticleRepository;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,10 @@ public class ArticleService {
 
     @Autowired
     private ArticleMapper articleMapper;
+    @Autowired
+    private CategoryMapper categoryMapper;
+    @Autowired
+    private CategoryService categoryService;
 
     // public Article findBySlug(String slug){
     //   return articleRepository.findBySlug(slug);
@@ -46,6 +51,8 @@ public class ArticleService {
         article.setCreatedAt(LocalDateTime.now());
         article.setUpdatedAt(LocalDateTime.now());
         article.setPublished(1);
+        Category category=categoryService.find(articlesDto.getCategoryId());
+        article.setCategory(category);
        return articleRepository.save(article);
     }
 
@@ -54,7 +61,7 @@ public class ArticleService {
     }
 
     public void saveImage(MultipartFile imageFile)throws Exception {
-        String folder="/photo/";
+        String folder="/photos/";
         byte[] bytes=imageFile.getBytes();
         Path path=Paths.get(folder +imageFile.getOriginalFilename());
         System.out.println(path.toAbsolutePath());

@@ -1,5 +1,6 @@
 package com.auk.project.miniblog.service;
 
+import com.auk.project.miniblog.dto.ArticlesDto;
 import com.auk.project.miniblog.dto.PhotoDto;
 import com.auk.project.miniblog.entity.Article;
 import com.auk.project.miniblog.entity.Photo;
@@ -12,9 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.kafka.core.KafkaTemplate;
