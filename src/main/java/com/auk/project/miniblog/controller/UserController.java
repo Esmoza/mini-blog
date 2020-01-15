@@ -1,4 +1,5 @@
 package com.auk.project.miniblog.controller;
+
 import com.auk.project.miniblog.entity.User;
 import com.auk.project.miniblog.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +22,17 @@ public class UserController {
     public UserRepository userRepository;
 
     @GetMapping("index")
-    public String getView(){
+    public String getView() {
         return "index";
     }
 
     @GetMapping("login")
-    public String showLoginForm(){
+    public String showLoginForm() {
         return "login";
     }
 
     @PostMapping("signin")
-    public String signin(@Valid User user,BindingResult result, Model model){
+    public String signin(@Valid User user, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "login";
         }

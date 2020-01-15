@@ -59,7 +59,7 @@ public class PhotoService {
         return photoMapper.mapToDtoList(photoRepository.findAll());
     }
 
-    public Photo findByPost(Article article){
+    public Photo findByPost(ArticlesDto article){
         Photo photo=findPhotoByArticleId(article.getId());
 
         return photo;

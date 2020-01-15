@@ -12,6 +12,6 @@ import java.util.Optional;
 public interface PhotoRepository extends CrudRepository<Photo, Integer> {
     void save(PhotoDto photo);
 
-   Optional<Photo> findById(Long id);
+    Photo findById(Long id);
     List<Photo> findAll();
 }

@@ -9,7 +9,6 @@ import com.auk.project.miniblog.repository.UserRepository;
 import com.auk.project.miniblog.service.ArticleService;
 import com.auk.project.miniblog.service.CommentService;
 import com.auk.project.miniblog.service.UserService;
-import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,7 +31,7 @@ public class CommentsController {
     @RequestMapping(value = "addComments", method = RequestMethod.POST)
     public String addComments(Model model, CommentDto commentDto) {
         commentService.save(commentDto);
-        model.addAttribute("comments",commentDto);
+        model.addAttribute("comments", commentDto);
         return "redirect:list";
     }
 

@@ -6,6 +6,7 @@ import com.auk.project.miniblog.entity.Category;
 import com.auk.project.miniblog.mapper.ArticleMapper;
 import com.auk.project.miniblog.mapper.CategoryMapper;
 import com.auk.project.miniblog.repository.ArticleRepository;
+import org.apache.kafka.common.protocol.types.Field;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,6 +54,7 @@ public class ArticleService {
         article.setPublished(1);
         Category category=categoryService.find(articlesDto.getCategoryId());
         article.setCategory(category);
+        article.setTags(articlesDto.getTags());
        return articleRepository.save(article);
     }
 

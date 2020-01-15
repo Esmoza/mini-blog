@@ -18,10 +18,19 @@ public class ArticlesDto {
     private CategoryDto categoryDto;
     private Long categoryId;
     private String path;
-    private String[] tags=null;
+    private String tags=null;
+    private List<String> showTags = null;
 
     public String getPath() {
         return path;
+    }
+
+    public List<String> getShowTags() {
+        return showTags;
+    }
+
+    public void setShowTags(List<String> showTags) {
+        this.showTags = showTags;
     }
 
     public Long getCategoryId() {
@@ -36,11 +45,11 @@ public class ArticlesDto {
         this.path = path;
     }
 
-    public String[] getTags() {
+    public String getTags() {
         return tags;
     }
 
-    public void setTags(String[] tags) {
+    public void setTags(String tags) {
         this.tags = tags;
     }
 
@@ -115,4 +124,5 @@ public class ArticlesDto {
     public void setCategoryDto(CategoryDto categoryDto) {
         this.categoryDto = categoryDto;
     }
+
 }

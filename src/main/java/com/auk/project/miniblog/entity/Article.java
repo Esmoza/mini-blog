@@ -32,8 +32,8 @@ public class Article {
     private LocalDateTime createdAt;
     @Column(name="updatedAt")
     private LocalDateTime updatedAt;
-    private String[] tags=null;
-     private Long categoryId;
+    private String tags=null;
+    private Long categoryId;
 
 //    @OneToMany(mappedBy = "articles", cascade = CascadeType.ALL)
  //   private List<Comment> comments=new ArrayList<>();
@@ -127,11 +127,11 @@ public class Article {
   this.category = category;
  }
 
- public String[] getTags() {
+ public String getTags() {
   return tags;
  }
 
- public void setTags(String[] tags) {
+ public void setTags(String tags) {
   this.tags = tags;
  }
 }

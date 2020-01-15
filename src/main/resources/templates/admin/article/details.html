@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:insert="/section/fragments.html:: headerfile"></head>
+<body>
+<header th:insert="/section/fragments.html :: navbar"></header>
+<aside th:insert="/section/fragments.html :: mainsidebar"></aside>
+<!-- Content Wrapper. Contains page content -->
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>DataTables</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">DataTables</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+                    <div class="card" th:switch="${articles}">
+                        <div th:each="article : ${articles}" >
+                            <div class="card con">
+                                <article style="width: 80%;" class="col-md-8">
+                                    <h2><a href="singlepost.html"th:text="${article.title}"></a></h2>
+
+                                    <div class="row">
+                                        <div class="group1 col-sm-6 col-md-6">
+                                            <span class="glyphicon glyphicon-folder-open"></span>  <a href="#">Signs</a>
+                                            <span class="glyphicon glyphicon-bookmark"></span> <a href="#">Aries</a>,
+                                            <a href="#">Fire</a>, <a href="#">Mars</a>
+                                        </div>
+                                        <div class="group2 col-sm-6 col-md-6">
+                                            <span class="glyphicon glyphicon-pencil"></span> <a href="singlepost.html#comments">20 Comments</a>
+                                            <span class="glyphicon glyphicon-time"th:text="${article.createdAt}"></span>
+                                        </div>
+                                    </div>
+                                    <hr>
+
+                                    <img th:src="@{${'/photos/' + article.path}}" class="img-responsive">
+
+                                    <br />
+                                    <div id="body">
+                                        <p class="lead" th:text="${article.summary}"></p>
+                                        <p class="lead" th:text="${article.content}"></p>
+                                    </div>
+                                    <p class="text-right">
+                                        <a href="singlepost.html"  id="readmore" class="text-right">
+                                            continue reading...
+                                        </a>
+                                    </p>
+                                    <hr>
+                                </article>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <footer class="main-footer">
+        <div class="float-right d-none d-sm-block">
+            <b>Version</b> 3.0.2-pre
+        </div>
+        <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights
+        reserved.
+    </footer>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="../../plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- DataTables -->
+<script src="../../plugins/datatables/jquery.dataTables.js"></script>
+<script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../../dist/js/demo.js"></script>
+<!-- page script -->
+<script>
+    $(function () {
+        $("#example1").DataTable();
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+        });
+    });
+</script>
+</body>
+</html>

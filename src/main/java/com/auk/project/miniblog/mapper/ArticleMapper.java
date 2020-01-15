@@ -35,6 +35,7 @@ public class ArticleMapper implements  CustomMapper<Article, ArticlesDto> {
             articlesDto.setTitle(article.getTitle());
             articlesDto.setContent(article.getContent());
             articlesDto.setSlug(article.getSlug());
+            articlesDto.setTags(article.getTags());
             articlesDto.setSummary(article.getSummary());
             articlesDto.setCreatedAt(article.getCreatedAt());
             articlesDto.setUpdatedAt(article.getUpdatedAt());

@@ -2,6 +2,7 @@ package com.auk.project.miniblog.config;
 
 import com.auk.project.miniblog.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -57,11 +58,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         .antMatchers("/confirm").permitAll()
                  .antMatchers("/static/**","/templates/signup").permitAll()
                         .antMatchers("/update/**").permitAll()
-                .antMatchers("/blog/**").authenticated()
-                        .antMatchers("/blog/uploadImage/").authenticated()
+                .antMatchers("/article/**").authenticated()
+                        .antMatchers("/article/uploadImage/").authenticated()
                         .antMatchers("/update/**").authenticated()
-                        .antMatchers("/admin/categories/**").hasRole("ADMIN")
-                .antMatchers("/blog/profile").authenticated()
+                        .antMatchers("/admin/").hasRole("ADMIN")
+                        .antMatchers("/table").hasRole("ADMIN")
+                .antMatchers("/article/profile").authenticated()
                 .and()
                 .formLogin()
                 .loginProcessingUrl("/signin")

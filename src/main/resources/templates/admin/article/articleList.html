@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:insert="/section/fragments.html:: headerfile"></head>
+<body>
+<header th:insert="/section/fragments.html :: navbar"></header>
+<aside th:insert="/section/fragments.html :: mainsidebar"></aside>
+<!-- Content Wrapper. Contains page content -->
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>DataTables</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">DataTables</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-12">
+          <div class="card"  th:switch="${articles}">
+            <div class="card-header">
+              <h3 class="card-title">DataTable with minimal features & hover style</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table id="example2" class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Summary</th>
+                  <th>Created At</th>
+                  <th>Updated At</th>
+                  <th>Slug</th>
+                  <th>Published</th>
+                  <th>Details</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="article : ${articles}">
+                  <td th:text="${article.title}"></td>
+                  <td th:text="${article.summary}"></td>
+                  <td th:text="${article.createdAt}"></td>
+                  <td th:text="${article.updatedAt}"></td>
+                  <td th:text="${article.slug}"></td>
+                  <td th:text="${article.published}"></td>
+                  <td><a th:href="@{/article/detail/{slug}(slug=${article.slug})}" class="btn btn-primary" style=" background-color: rgba(42, 42, 42, 0.81)"><i class="fas fa-user-edit ml-2"></i></a></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+<include file = "/section/footer"/>
+<include file = "/section/scripts"/>
+</body>
+</html>

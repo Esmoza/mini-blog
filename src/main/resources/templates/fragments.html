@@ -22,8 +22,6 @@
           href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
           integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
           crossorigin="anonymous">
-    <script src="../tagPlagin/js/bootstrap-tags.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../tagPlagin/css/bootstrap-tags.css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="/css/login.css">
@@ -32,6 +30,10 @@
 
     <script src="https://cdn.ckeditor.com/ckeditor5/15.0.0/classic/ckeditor.js"></script>
     <script src="http://SortableJS.github.io/Sortable/Sortable.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.js"></script>
 
 </head>
 <body>
@@ -49,11 +51,7 @@
                     <ul class="nav navbar-nav topnavbar">
                         <!--    <li class="active list"><a href="#">Home</a></li> -->
                         <li class="list"><a href="/index">Home</a></li>
-
-                        <sec:authorize access="hasAnyRole('ADMIN')">
-                            <li class="list"><a href="/blog/list">Show Articles</a></li>
-                        </sec:authorize>
-                        <li class="list"><a  href="/blog/post"> Articles</a></li>
+                        <li class="list"><a  href="/article/post"> Articles</a></li>
                         <!--   <li class="list" sec:authorize="isAuthenticated()">
                             <a href="#" th:href="@{'/update/' + ${#authentication.name}}">Profile</a>
                         </li>
@@ -69,10 +67,6 @@
                         <li class="list">
                             <a href="#" th:href="@{/admin/categories/list}">Category</a>
                         </li> -->
-                        </sec:authorize>
-                        <li class="list" sec:authorize="isAuthenticated()">
-                            <a href="#" th:href="@{/admin/categories/categoriesForm}">Category</a>
-                        </li>
                     </ul>
                 </div>
                 <!--

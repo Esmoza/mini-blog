@@ -10,8 +10,8 @@
 		<div class="card">
 			<div class="card-body">
 				<div class="col-md-10">
-					<form th:action="@{/blog/addArticles}"
-						th:object="${article}" method="POST" enctype="multipart/form-data">
+					<form th:action="@{/article/addArticles}"
+						th:object="${article}" method="POST" enctype="multipart/form-data" id="addArticleForm">
 						<div class="row">
 							<div class="form-group col-md-8">
 								<label for="title" class="col-form-label">Title</label> <input
@@ -52,7 +52,6 @@
 								<input type="text" autocomplete="off" th:field="*{updatedAt}" class="form-control" id="updatedAt"
 									placeholder="updatedAt">
 							</div> -->
-							<div id="my-tag-list" class="tag-list"></div>
 
 							<div class="form-group col-md-8">
 								<select class="form-control"  id="category" th:field="*{categoryId}">
@@ -67,11 +66,14 @@
 				                           </textarea>
 							</div>
 							<div class="form-group col-md-8">
+								<label>Add Tags:</label><br/>
+								<input type="text" name="tags" placeholder="Tags" th:field="*{tags}" class="tm-input form-control tm-input-info"/>
+							</div>
+							<div class="form-group col-md-8">
 								<input type="file" name="imageFile">
-								<input type="submit" value="Upload">
 							</div>
 							<div class="col-md-6">
-								<input type="submit" class="btn btn-primary" value="Add a article">
+								<input type="button" class="btn btn-primary" value="Add a article" id="addArticle">
 							</div>
 							</div>
 					</form>
@@ -80,19 +82,20 @@
 			</div>
 		</div>
 	</div>
-<script>
-	$(document).ready(function() {
-		// If using Bootstrap 2, be sure to include:
-		// Tags.bootstrapVersion = "2";
-		$("#my-tag-list").tags({
-			tagData:["boilerplate", "tags"],
-			suggestions:["basic", "suggestions"],
-			excludeList:["not", "these", "words"]
-		});
-	});
+<script type="text/javascript">
+	$(".tm-input").tagsManager();
 </script>
  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+		$("#addArticle").on("click",function () {
+			var tags = $("input[name=hidden-tags]").val();
+			$("input[name=tags]").val(tags);
+			console.log("tags", tags);
+			$("#addArticleForm").submit();
+		});
+</script>
 <script>
 	ClassicEditor
 			.create( document.querySelector( '#content' ) )

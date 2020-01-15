@@ -5,65 +5,61 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head th:insert="fragments.html :: headerfiles"></head>
+<script>
+    $( function() {
+        $( "#sortable" ).sortable();
+        $( "#sortable" ).disableSelection();
+    } );
+</script>
 <body>
 <header th:insert="fragments.html :: nav"></header>
 <div class="container my-2" >
 
-        <div class="card">
-            <div class="card-body">
-                <div th:switch="${articles}" class="container my-5">
-                    <p class="my-5">
-                        <a href="/blog/form" class="btn btn-primary"><i
-                                class="fas fa-user-plus ml-2"> Add Article</i></a>
-                    </p>
-                    <div class="col-md-10">
-                        <h2 th:case="null">No Articles yet!</h2>
-                        <div th:case="*">
-                            <div th:each="article : ${articles}">
-                                <article style="width: 80%;" class="col-md-8">
-                                    <h2><a href="singlepost.html"th:text="${articles.title}"></a></h2>
-
-                                    <div class="row">
-                                        <div class="group1 col-sm-6 col-md-6">
-                                            <span class="glyphicon glyphicon-folder-open"></span>  <a href="#">Signs</a>
-                                            <span class="glyphicon glyphicon-bookmark"></span> <a href="#">Aries</a>,
-                                            <a href="#">Fire</a>, <a href="#">Mars</a>
+    <div class="card">
+        <div class="card-body">
+            <div  th:switch="${articles}" class="container my-5">
+                <p class="my-5">
+                    <a href="/article/form" class="btn btn-primary"><i
+                            class="fas fa-user-plus ml-2"> Add Article</i></a>
+                </p>
+                <div class="post-card" th:each="article : ${articles}">
+                    <div class="img-wrapper">
+                        <img th:object="${photo}" th:src="@{${'/photos/' + photo.fileName}}" class="img-responsive">
+                    </div>
+                    <div class="post-details">
+                        <div id="simpleList">
+                            <div>
+                                <div class="card con">
+                                    <article  class="">
+                                        <h2><a th:href="@{/article/detail/{slug}(slug=${article.slug})}" th:text="${article.title}"></a></h2>
+                                        <div id="body">
+                                            <p class="lead" th:text="${article.summary}"></p>
+                                            <p class="lead" th:utext="${article.content}"></p>
                                         </div>
-                                        <div class="group2 col-sm-6 col-md-6">
-                                            <span class="glyphicon glyphicon-pencil"></span> <a href="singlepost.html#comments">20 Comments</a>
-                                            <span class="glyphicon glyphicon-time"></span> August 24, 2013 9:00 PM
+                                        <div class="">
+                                            <div class="group1">
+                                                <div class="tags">
+                                                    <div th:each="tag : ${article.showTags}">
+                                                        <span class="glyphicon glyphicon-folder-open"></span><a th:text="${tag}" href="#"></a>,
+                                                    </div>
+                                                </div>
+                                                <div class="comments">
+                                                    <span class="glyphicon glyphicon-pencil"></span> <a href="singlepost.html#comments">20 Comments</a>
+                                                </div>
+                                            </div>
+                                            <div class="group2">
+                                                <span class="glyphicon glyphicon-time"th:text="${article.createdAt}"></span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <hr>
+                                        <br />
 
-                                    <img th:object="${photo}" th:src="@{${'/photos/' + photo.fileName}}" class="img-responsive">
-
-                                    <br />
-                                    <div id="body">
-                                    <p class="lead" th:text="${articles.summary}"></p>
-                                    <p class="lead" th:text="${articles.content}"></p>
-                                    </div>
-                                    <p class="text-right">
-                                        <a href="singlepost.html"  id="readmore" class="text-right">
-                                            continue reading...
-                                        </a>
-                                    </p>
-                                    <hr>
-                                </article>
+                                    </article>
+                                </div>
 
                             </div>
 
                         </div>
-
-                    </div>
-
-
-                </div>
-
-    <div>
     </div>
-</div>
-        </div>
 </div>
 </body>
 

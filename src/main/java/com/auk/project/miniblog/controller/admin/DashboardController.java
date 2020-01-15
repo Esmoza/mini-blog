@@ -1,5 +1,6 @@
 package com.auk.project.miniblog.controller.admin;
 
+import com.auk.project.miniblog.dto.ArticlesDto;
 import com.auk.project.miniblog.entity.Article;
 import com.auk.project.miniblog.service.ArticleService;
 import com.auk.project.miniblog.service.PhotoService;
@@ -11,26 +12,28 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/dashboard/")
+@RequestMapping("/admin")
 public class DashboardController {
 
     @Autowired
     private ArticleService articleService;
     @Autowired
     private PhotoService photoService;
-    @GetMapping("admin")
-    public String dashboard(){
-      return "/admin/admin-templates";
+
+    @GetMapping("/")
+    public String dashboard() {
+        return "/admin/admin-templates";
     }
-    @GetMapping("list")
+
+    @GetMapping("/articles-list")
     public String findAll(Model model) {
         model.addAttribute("articles", articleService.findAll());
 
-        return "../static/pages/tables/data";
+        return "/admin/article/articleList";
     }
 
     @GetMapping("data/{slug}")
-    public String showDetails(@PathVariable("slug") String slug, Model model, Article article) {
+    public String showDetails(@PathVariable("slug") String slug, Model model, ArticlesDto article) {
         model.addAttribute("articles", articleService.find(slug));
         model.addAttribute("photo", photoService.findByPost(article));
         return "redirect:/dashboard/list";

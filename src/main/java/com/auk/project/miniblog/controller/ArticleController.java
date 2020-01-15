@@ -11,6 +11,7 @@ import com.auk.project.miniblog.repository.ArticleRepository;
 import com.auk.project.miniblog.service.ArticleService;
 import com.auk.project.miniblog.service.CategoryService;
 import com.auk.project.miniblog.service.PhotoService;
+import org.apache.kafka.common.protocol.types.Field;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -28,10 +29,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/blog/")
+@RequestMapping("/article/")
 public class ArticleController {
     @Autowired
     private ArticleRepository article;
@@ -48,9 +50,9 @@ public class ArticleController {
     public ArticleMapper articleMapper;
 
     @GetMapping("form")
-    public String showArticleForm(Article articles, Model model, Category category){
-        List<CategoryDto> categories= categoryService.findAll();
-        model.addAttribute("categories",categories);
+    public String showArticleForm(Article articles, Model model, Category category) {
+        List<CategoryDto> categories = categoryService.findAll();
+        model.addAttribute("categories", categories);
         return "add-articles";
     }
 
@@ -61,12 +63,19 @@ public class ArticleController {
         return "show-articles";
     }
 
-   @GetMapping("post")
+    @GetMapping("post")
     public String showPost(Model model) {
-        List<ArticlesDto> articlesDtos=articleService.findAll();
-        for(ArticlesDto articleDto: articlesDtos){
+        List<ArticlesDto> articlesDtos = articleService.findAll();
+        for (ArticlesDto articleDto : articlesDtos) {
             Photo photo = photoService.findPhotoByArticleId(articleDto.getId());
             articleDto.setPath(photo.getFileName());
+            List<String> tagList = new ArrayList<>();
+            String[] tags = articleDto.getTags().split(",");
+
+            for (String tag : tags) {
+                tagList.add(tag);
+            }
+            articleDto.setShowTags(tagList);
         }
 
         model.addAttribute("articles", articlesDtos);
@@ -75,43 +84,44 @@ public class ArticleController {
     }
 
     @GetMapping("detail/{slug}")
-    public String showDetails(@PathVariable("slug") String slug, Model model,Article article) {
-        ArticlesDto article1=articleService.find(slug);
+    public String showDetails(@PathVariable("slug") String slug, Model model, Article article) {
+        ArticlesDto article1 = articleService.find(slug);
         model.addAttribute("articles", article1);
-        model.addAttribute("photo", photoService.findByPost(articleMapper.mapToEntity(article1)));
+        model.addAttribute("photo", photoService.findByPost(article1));
         return "show-details";
     }
 
     @PostMapping("addArticles")
-   public ModelAndView saveArticle(@RequestParam("imageFile")MultipartFile imageFile, ArticlesDto articlesDto)throws Exception{
-        ModelAndView modelAndView=new ModelAndView();
-        Article article=null;
-        try{
-          article=articleService.save(articlesDto);
-        }catch(Exception e){
+    public ModelAndView saveArticle(@RequestParam("imageFile") MultipartFile imageFile, ArticlesDto articlesDto) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+        Article article = null;
+        try {
+            article = articleService.save(articlesDto);
+
+        } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Unable to save");
             modelAndView.setViewName("error");
             return modelAndView;
         }
-        PhotoDto photoDto=new PhotoDto();
+        PhotoDto photoDto = new PhotoDto();
         photoDto.setFileName(imageFile.getOriginalFilename());
         photoDto.setPath("/photos/");
         photoDto.setArtcicleId(article.getId());
         photoService.save(photoDto);
 
-        modelAndView.setViewName("redirect:/blog/post");
+        modelAndView.setViewName("redirect:/article/post");
 
-        try{
-            photoService.savePhotoImage(photoDto,imageFile);
+        try {
+            photoService.savePhotoImage(photoDto, imageFile);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error saving photo");
             modelAndView.setViewName("error");
             return modelAndView;
         }
-        modelAndView.addObject("photoDto",photoDto);
+        modelAndView.addObject("photoDto", photoDto);
         modelAndView.addObject("articleDto", articlesDto);
         return modelAndView;
     }

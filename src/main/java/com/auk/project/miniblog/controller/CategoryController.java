@@ -15,33 +15,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/admin/categories/")
+@RequestMapping("/categories/")
 public class CategoryController {
 
     @Autowired
     private CategoryRepository categoryRepository;
 
     @GetMapping("categoriesForm")
-    public String  addCategories(Category category){
-        return "../static/pages/category/add-category";
+    public String addCategories(Category category) {
+        return "/admin/category/add-category";
 
     }
-   
+
     @GetMapping("showForm")
     public String showUpdateForm(Model model) {
         model.addAttribute("categories", categoryRepository.findAll());
-        return "../static/pages/category/show-categories";
+        return "/admin/category/show-categories";
     }
 
     @PostMapping("addCategory")
     public String addCategory(@Valid Category category, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "../static/pages/category/add-category";
+            return "/admin/category/add-category";
         }
 
         categoryRepository.save(category);
         return "redirect:showForm";
     }
+
     @GetMapping("edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
         Category category = categoryRepository.findById(id)
@@ -55,12 +56,12 @@ public class CategoryController {
                                  Model model) {
         if (result.hasErrors()) {
             category.setId(id);
-            return "../static/pages/category/update-categories";
+            return "/category/update-categories";
         }
 
         categoryRepository.save(category);
         model.addAttribute("categories", categoryRepository.findAll());
-        return "../static/pages/category/show-categories";
+        return "/category/show-categories";
     }
 
     @GetMapping("deleteCategory/{id}")
