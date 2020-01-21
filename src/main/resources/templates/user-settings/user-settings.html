@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head th:insert="fragments.html :: headerfiles"></head>
-<link rel="stylesheet" href="/css/profile.css">
+<link rel="stylesheet" href="../static/css/profile.css">
 <body>
 <header th:insert="fragments.html :: nav">
 
@@ -13,6 +13,16 @@
         <div><h1 style="margin-top: 25px">User Settings</h1></div>
     </div>
     <div class="wrapper">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a href="#"><span class="badge"><i class="fas fa-user-cog align-middle"></i></span><span class="align-middle">Settings</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/settings/password/new"><span class="badge"></span><span class="align-middle">Change Password</span></a>
+                </li>
+            </ul>
+        </div>
         <!--
         <div class="column">
             <div class="text-center">
@@ -67,11 +77,9 @@
                             <input type="text" class="form-control" disabled id="username" placeholder="user name" title="enter your user name if any.">
                         </div>
 
-                        <div class="custom-col">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" name="password" id="password" placeholder="password" title="enter your password.">
+                        <div class="row mx-auto py-3">
+                            <a href="/settings/password/new" class="btn btn-lg btn-outline-primary">Change Password?</a>
                         </div>
-
                     </div>
                     <div class="button-wrapper">
                         <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>

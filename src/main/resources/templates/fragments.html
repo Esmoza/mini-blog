@@ -83,7 +83,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active" sec:authorize="isAuthenticated()">
-                            <a class="nav-link"  href="#"  th:href="@{'/update/' + ${#authentication.name}}" style="color: #fefefe;font-size: 17px;font-style: normal;margin-left:490px"><span class="badge"><i class="fas fa-user-cog align-middle"></i></span><span class="align-middle">Settings</span></a>
+                            <a class="nav-link"  th:href="@{'/update/' + ${#authentication.name}}" style="color: #fefefe;font-size: 17px;font-style: normal;margin-left:490px"><span class="badge"><i class="fas fa-user-cog align-middle"></i></span><span class="align-middle">Settings</span></a>
                         </li>
                         <li class="nav-item active">
                             <a class="nav-link"  sec:authorize="isAnonymous()" th:href="@{~/login}" style="color: #fefefe;font-size: 17px;font-style: normal;margin-left:590px"><span class="badge"><i class="fas fa-sign-out-alt align-middle"></i></span><span class="align-middle">Log In</span></a>

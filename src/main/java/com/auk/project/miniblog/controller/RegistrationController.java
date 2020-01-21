@@ -1,5 +1,6 @@
 package com.auk.project.miniblog.controller;
 
+import com.auk.project.miniblog.dto.UserUpdatePasswordDto;
 import com.auk.project.miniblog.entity.ConfirmationToken;
 import com.auk.project.miniblog.entity.User;
 import com.auk.project.miniblog.repository.ConfirmationTokenRepository;
@@ -117,7 +118,7 @@ public class RegistrationController {
         }
         model.addAttribute("user", user1);
         model.addAttribute("user", userService.findByUserName(username));
-        return "profile.html";
+        return "/user-settings/user-settings";
     }
 
     @PostMapping("/update/{username}")
@@ -131,7 +132,7 @@ public class RegistrationController {
 
         }
         if (result.hasErrors()) {
-            return "profile";
+            return "user-settings";
         }
         user1.setUsername(user.getUsername());
         user1.setEmail(user.getEmail());
@@ -140,7 +141,7 @@ public class RegistrationController {
         user1.setPhoneNumber(user.getPhoneNumber());
         user1.setLocation(user.getLocation());
         userRepository.save(user1);
-        return "profile";
+        return "user-settings";
     }
 
     @GetMapping("/admin")
@@ -148,5 +149,21 @@ public class RegistrationController {
         return "admin-templates";
     }
 
+    //Set new password
+    @GetMapping("/settings/password/new")
+    public String newUserPassword(Model model){
+        model.addAttribute("userUpdate", new UserUpdatePasswordDto());
+        return "/user-settings/new-password";
+    }
 
+    @PostMapping("/settings/password/new")
+    public String saveUserPassword(Model model,@Valid UserUpdatePasswordDto userUpdateDto, BindingResult result){
+        if (result.hasErrors()) {
+            return "profile";
+        }
+        userService.changePassword(userUpdateDto);
+       // model.addAttribute("userUpdate", userUpdateDto);
+
+        return "redirect:/" + "users/settings/";
+    }
 }
