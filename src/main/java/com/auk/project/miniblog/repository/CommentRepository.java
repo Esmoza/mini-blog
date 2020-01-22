@@ -7,5 +7,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Repository
 public interface CommentRepository extends CrudRepository<Comment,Long> {
-    void saveAndFlush(Comment comment);
+    Comment save(Comment comment);
 }

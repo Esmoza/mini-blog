@@ -2,15 +2,18 @@ package com.auk.project.miniblog.controller;
 
 import com.auk.project.miniblog.dto.ArticlesDto;
 import com.auk.project.miniblog.dto.CategoryDto;
+import com.auk.project.miniblog.dto.CommentAndUserDto;
 import com.auk.project.miniblog.dto.PhotoDto;
 import com.auk.project.miniblog.entity.Article;
 import com.auk.project.miniblog.entity.Category;
 import com.auk.project.miniblog.entity.Photo;
+import com.auk.project.miniblog.entity.User;
 import com.auk.project.miniblog.mapper.ArticleMapper;
 import com.auk.project.miniblog.repository.ArticleRepository;
 import com.auk.project.miniblog.service.ArticleService;
 import com.auk.project.miniblog.service.CategoryService;
 import com.auk.project.miniblog.service.PhotoService;
+import com.auk.project.miniblog.service.UserService;
 import org.apache.kafka.common.protocol.types.Field;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -40,6 +43,8 @@ public class ArticleController {
 
     @Autowired
     private ArticleService articleService;
+    @Autowired
+    private UserService userService;
 
     @Autowired
     public CategoryService categoryService;
@@ -84,8 +89,12 @@ public class ArticleController {
     }
 
     @GetMapping("detail/{slug}")
-    public String showDetails(@PathVariable("slug") String slug, Model model, Article article) {
+    public String showDetails(@PathVariable("slug") String slug, Model model, Article article,CommentAndUserDto commentAndUserDto) {
         ArticlesDto article1 = articleService.find(slug);
+        User user=userService.getUserByUserName();
+        commentAndUserDto.setAuthorEmail(user.getEmail());
+        commentAndUserDto.setAuthorName(user.getUsername());
+        model.addAttribute("commentDto",commentAndUserDto);
         model.addAttribute("articles", article1);
         model.addAttribute("photo", photoService.findByPost(article1));
         return "show-details";

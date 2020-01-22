@@ -30,7 +30,6 @@
 
     <script src="https://cdn.ckeditor.com/ckeditor5/15.0.0/classic/ckeditor.js"></script>
     <script src="http://SortableJS.github.io/Sortable/Sortable.js"></script>
-
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.css">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.js"></script>
@@ -86,7 +85,7 @@
                             <a class="nav-link"  th:href="@{'/update/' + ${#authentication.name}}" style="color: #fefefe;font-size: 17px;font-style: normal;margin-left:490px"><span class="badge"><i class="fas fa-user-cog align-middle"></i></span><span class="align-middle">Settings</span></a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link"  sec:authorize="isAnonymous()" th:href="@{~/login}" style="color: #fefefe;font-size: 17px;font-style: normal;margin-left:590px"><span class="badge"><i class="fas fa-sign-out-alt align-middle"></i></span><span class="align-middle">Log In</span></a>
+                            <a class="nav-link"  sec:authorize="isAnonymous()" th:href="@{~/login}" style="color: #fefefe;font-size: 17px;font-style: normal;margin-left:590px"><span class="badge"></span><span class="align-middle">Log In</span></a>
                         </li>
                         <li class="nav-item active">
                             <a class="nav-link"  sec:authorize="isAuthenticated()" th:href="@{~/logout}" style="color: #fefefe;font-size: 17px;font-style: normal;margin-left: 20px"><span class="badge"><i class="fas fa-sign-out-alt align-middle"></i></span><span class="align-middle">Log out</span></a>

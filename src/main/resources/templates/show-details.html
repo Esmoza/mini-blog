@@ -4,6 +4,7 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<link href="/css/style.css" rel="stylesheet">
 <head th:insert="fragments.html :: headerfiles"></head>
 <script>
     $( function() {
@@ -52,7 +53,25 @@
                                             </div>
                                         </div>
                                         <br />
+                                        <div id="respond">
 
+                                            <h3>Leave a Comment</h3>
+                                            <form th:action="@{/comments/addComments}" th:object="${commentDto}" method="POST" id="commentform">
+                                                <label for="comment_author" class="required">Your name</label>
+                                                <input type="text" name="authorName"  th:field="*{authorName}" id="comment_author" value="" tabindex="1" required="required">
+
+                                                <label for="email" class="required">Your email;</label>
+                                                <input type="email" name="authorEmail"th:field="*{authorEmail}" id="email" value="" tabindex="2" required="required">
+                                                <label for="comment" class="required">Your message</label>
+                                                <textarea name="commendBody" id="comment" th:field="*{commendBody}">
+                                                    </textarea>
+
+                                                <input type="hidden" name="comment_post_ID" value="1" id="comment_post_ID" />
+                                                <input name="submit" type="submit" value="Submit comment" />
+
+                                            </form>
+
+                                        </div>
                                     </article>
                                 </div>
 
@@ -61,7 +80,18 @@
                         </div>
     </div>
 </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#comment' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
 
 <script>
 $(function(){
